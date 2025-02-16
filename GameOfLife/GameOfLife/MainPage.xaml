@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GameOfLife.MainPage"
+             BackgroundColor="Gray">
+
+    <ScrollView>
+        <StackLayout Spacing="25" Margin="35">
+            <StackLayout>
+                <Grid HorizontalOptions="Fill" ColumnSpacing="10">
+                    <!-- Первая колонка (пустая, для отступов) -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Заголовок в центре -->
+                    <Label 
+                        Text="❤️ Игра Жизнь!" 
+                        TextColor="Black" 
+                        FontSize="30" 
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Grid.Column="1"/>
+
+                    <!-- Кнопка информации справа -->
+                    <ImageButton 
+                        Source="info.png" 
+                        WidthRequest="5" 
+                        HeightRequest="5" 
+                        BackgroundColor="Gray"
+                        HorizontalOptions="Start"
+                        Clicked="InfoClicked"
+                        Grid.Column="2"/>
+                </Grid>
+
+                <Frame BorderColor="Black" BackgroundColor="LightGray" HorizontalOptions="Center" VerticalOptions="Center" >
+                    <StackLayout Spacing="20">
+                        <Grid x:Name="Field" 
+                          WidthRequest="500"
+                          HeightRequest="500"
+                          Padding="2"
+                          Background="Gray"/>
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Label x:Name="SpeedLabel" Text="Текущая скорость развития поколений равна: 1" HorizontalOptions="Center" TextColor="Black" FontSize="20" WidthRequest="500" />
+                            <Stepper x:Name="GenerationSpeed" ValueChanged="GenerationSpeedChanged" Minimum="1" Maximum="15" Background="Gray" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="50" >
+                            <Button Text="Start" Clicked="StartClicked" WidthRequest="200" HeightRequest="50" FontSize="20" BackgroundColor="#FFB960" />
+                            <Button Text="Pause" Clicked="PauseClicked" WidthRequest="200" HeightRequest="50" FontSize="20" BackgroundColor="#FFB960"  />
+                            <Button Text="Restart" Clicked="RestartClicked" WidthRequest="200" HeightRequest="50" FontSize="20" BackgroundColor="#FFB960"  />
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
