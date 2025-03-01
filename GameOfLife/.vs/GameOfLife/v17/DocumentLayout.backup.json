@@ -1,22 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\__Studies\\_Semester_4\\Technologies_and_methods_of_programming\\GameOfLife\\",
+  "WorkspaceRootPath": "D:\\__Studies\\_Semester_4\\\u0422\u0418\u041C\u041F\\GameOfLife\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|d:\\__studies\\_semester_4\\technologies_and_methods_of_programming\\gameoflife\\gameoflife\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|solutionrelative:gameoflife\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|d:\\__studies\\_semester_4\\technologies_and_methods_of_programming\\gameoflife\\gameoflife\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|solutionrelative:gameoflife\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|d:\\__studies\\_semester_4\\technologies_and_methods_of_programming\\gameoflife\\gameoflife\\gameoflife.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|d:\\__studies\\_semester_4\\\u0442\u0438\u043C\u043F\\gameoflife\\gameoflife\\gameoflife.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|solutionrelative:gameoflife\\gameoflife.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|d:\\__studies\\_semester_4\\technologies_and_methods_of_programming\\gameoflife\\gameoflife\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|solutionrelative:gameoflife\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|d:\\__studies\\_semester_4\\\u0442\u0438\u043C\u043F\\gameoflife\\gameoflife\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|solutionrelative:gameoflife\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|d:\\__studies\\_semester_4\\\u0442\u0438\u043C\u043F\\gameoflife\\gameoflife\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{008C1831-1866-4700-8366-A8FEA10436D5}|GameOfLife\\GameOfLife.csproj|solutionrelative:gameoflife\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,54 +26,41 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "D:\\__Studies\\_Semester_4\\Technologies_and_methods_of_programming\\GameOfLife\\GameOfLife\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "GameOfLife\\Properties\\launchSettings.json",
-              "ToolTip": "D:\\__Studies\\_Semester_4\\Technologies_and_methods_of_programming\\GameOfLife\\GameOfLife\\Properties\\launchSettings.json",
-              "RelativeToolTip": "GameOfLife\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-16T16:45:52.733Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GameOfLife",
-              "DocumentMoniker": "D:\\__Studies\\_Semester_4\\Technologies_and_methods_of_programming\\GameOfLife\\GameOfLife\\GameOfLife.csproj",
-              "RelativeDocumentMoniker": "GameOfLife\\GameOfLife.csproj",
-              "ToolTip": "D:\\__Studies\\_Semester_4\\Technologies_and_methods_of_programming\\GameOfLife\\GameOfLife\\GameOfLife.csproj",
-              "RelativeToolTip": "GameOfLife\\GameOfLife.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-02-16T16:43:18.21Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainPage.xaml",
-              "DocumentMoniker": "D:\\__Studies\\_Semester_4\\Technologies_and_methods_of_programming\\GameOfLife\\GameOfLife\\MainPage.xaml",
+              "DocumentMoniker": "D:\\__Studies\\_Semester_4\\\u0422\u0418\u041C\u041F\\GameOfLife\\GameOfLife\\MainPage.xaml",
               "RelativeDocumentMoniker": "GameOfLife\\MainPage.xaml",
-              "ToolTip": "D:\\__Studies\\_Semester_4\\Technologies_and_methods_of_programming\\GameOfLife\\GameOfLife\\MainPage.xaml",
+              "ToolTip": "D:\\__Studies\\_Semester_4\\\u0422\u0418\u041C\u041F\\GameOfLife\\GameOfLife\\MainPage.xaml",
               "RelativeToolTip": "GameOfLife\\MainPage.xaml",
-              "ViewState": "AgIAABIAAAAAAAAAAADwvyUAAAB6AAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAAADMAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-02-15T11:03:13.639Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MainPage.xaml.cs",
-              "DocumentMoniker": "D:\\__Studies\\_Semester_4\\Technologies_and_methods_of_programming\\GameOfLife\\GameOfLife\\MainPage.xaml.cs",
+              "DocumentMoniker": "D:\\__Studies\\_Semester_4\\\u0422\u0418\u041C\u041F\\GameOfLife\\GameOfLife\\MainPage.xaml.cs",
               "RelativeDocumentMoniker": "GameOfLife\\MainPage.xaml.cs",
-              "ToolTip": "D:\\__Studies\\_Semester_4\\Technologies_and_methods_of_programming\\GameOfLife\\GameOfLife\\MainPage.xaml.cs",
+              "ToolTip": "D:\\__Studies\\_Semester_4\\\u0422\u0418\u041C\u041F\\GameOfLife\\GameOfLife\\MainPage.xaml.cs",
               "RelativeToolTip": "GameOfLife\\MainPage.xaml.cs",
-              "ViewState": "AgIAAPwAAAAAAAAAAAAwwAIBAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAMgAAAAAAAAAAAAAANcAAAB+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-15T10:18:49.472Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GameOfLife.csproj",
+              "DocumentMoniker": "D:\\__Studies\\_Semester_4\\\u0422\u0418\u041C\u041F\\GameOfLife\\GameOfLife\\GameOfLife.csproj",
+              "RelativeDocumentMoniker": "GameOfLife\\GameOfLife.csproj",
+              "ToolTip": "D:\\__Studies\\_Semester_4\\\u0422\u0418\u041C\u041F\\GameOfLife\\GameOfLife\\GameOfLife.csproj",
+              "RelativeToolTip": "GameOfLife\\GameOfLife.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-16T16:43:18.21Z",
               "EditorCaption": ""
             }
           ]

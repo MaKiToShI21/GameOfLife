@@ -15,19 +15,74 @@ namespace GameOfLife
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
         const int Rows = 20;
-        private const int Cols = 20;
+        private const int Columns = 20;
         private bool _isRunning = false;
-        Cell[,] cells = new Cell[Rows, Cols]; //основной массив
-        private readonly BoxView[,] _cells = new BoxView[Rows, Cols];
-        private readonly bool[,] _cellStates = new bool[Rows, Cols];
+        Cell[,] cells = new Cell[Rows, Columns]; //основной массив
+        private readonly BoxView[,] _cells = new BoxView[Rows, Columns];
+        private readonly bool[,] _cellStates = new bool[Rows, Columns];
         private int _generationSpeed = 1;
         private List<Cell[,]> _historyOfCells = new();
+       
+        public int GenerationSpeed
+        {
+            get => _generationSpeed;
+            set
+            {
+                if (_generationSpeed != value)
+                {
+                    _generationSpeed = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _minCells = 2;
+        public int MinCells
+        {
+            get => _minCells;
+            set
+            {
+                if (_minCells != value)
+                {
+                    _minCells = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _maxCells = 3;
+        public int MaxCells
+        {
+            get => _maxCells;
+            set
+            {
+                if (_maxCells != value)
+                {
+                    _maxCells = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private int _revivalCells = 3;
+        public int RevivalCells
+        {
+            get => _revivalCells;
+            set
+            {
+                if (_revivalCells != value)
+                {
+                    _revivalCells = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public MainPage()
         {
             InitializeComponent();
             CreateGrid();
-            GenerationSpeed.Value = 1;
+            BindingContext = this;
         }
 
         private void CreateGrid()
@@ -40,14 +95,14 @@ namespace GameOfLife
             {
                 Field.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             }
-            for (int j = 0; j < Cols; j++)
+            for (int j = 0; j < Columns; j++)
             {
                 Field.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
             }
 
             for (int i = 0; i < Rows; i++)
             {
-                for (int j = 0; j < Cols; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     var cell = new BoxView
                     {
@@ -81,7 +136,7 @@ namespace GameOfLife
         {
             for (int i = 0; i < Rows; i++)
             {
-                for (int j = 0; j < Cols; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     if (_cells[i, j].BackgroundColor == Colors.Black)
                         cells[i, j] = new Cell(false);
@@ -95,7 +150,7 @@ namespace GameOfLife
         {
             for (int i = 0; i < Rows; i++)
             {
-                for (int j = 0; j < Cols; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     if (cells[i, j].Life != new_cells[i, j].Life)
                         return false;
@@ -109,7 +164,7 @@ namespace GameOfLife
         {
             for (int i = 0; i < Rows; i++)
             {
-                for (int j = 0; j < Cols; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     if (cells[i, j].Life)
                         _cells[i, j].BackgroundColor = Colors.LightGreen;
@@ -122,7 +177,7 @@ namespace GameOfLife
         {
             for (int i = 0; i < Rows; i++)
             {
-                for (int j = 0; j < Cols; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     new_cells[i, j] = new Cell(cells[i, j].Life);
                 }
@@ -138,27 +193,27 @@ namespace GameOfLife
 
                 while (_isRunning)
                 { 
-                    Cell[,] new_cells = new Cell[Rows, Cols];
+                    Cell[,] new_cells = new Cell[Rows, Columns];
                     new_cells = CloneCells(new_cells);
 
                     int count_life_cells = 0;
 
                     for (int i = 0; i < Rows; i++)
                     {
-                        for (int j = 0; j < Cols; j++)
+                        for (int j = 0; j < Columns; j++)
                         {
                             bool[] LifeArray = new bool[8];
                             LifeArray[0] = i - 1 != -1 && cells[i - 1, j].Life;
                             LifeArray[1] = j - 1 != -1 && cells[i, j - 1].Life;
                             LifeArray[2] = i - 1 != -1 && j - 1 != -1 && cells[i - 1, j - 1].Life;
-                            LifeArray[3] = i - 1 != -1 && j + 1 != 20 && cells[i - 1, j + 1].Life;
-                            LifeArray[4] = i + 1 != 20 && j - 1 != -1 && cells[i + 1, j - 1].Life;
-                            LifeArray[5] = i + 1 != 20 && cells[i + 1, j].Life;
-                            LifeArray[6] = j + 1 != 20 && cells[i, j + 1].Life;
-                            LifeArray[7] = i + 1 != 20 && j + 1 != 20 && cells[i + 1, j + 1].Life;
+                            LifeArray[3] = i - 1 != -1 && j + 1 != Columns && cells[i - 1, j + 1].Life;
+                            LifeArray[4] = i + 1 != Rows && j - 1 != -1 && cells[i + 1, j - 1].Life;
+                            LifeArray[5] = i + 1 != Rows && cells[i + 1, j].Life;
+                            LifeArray[6] = j + 1 != Columns && cells[i, j + 1].Life;
+                            LifeArray[7] = i + 1 != Rows && j + 1 != Columns && cells[i + 1, j + 1].Life;
                             int aliveNeighbors = LifeArray.Count(x => x);
 
-                            new_cells[i, j].Life = new_cells[i, j].Life ? (aliveNeighbors == 2 || aliveNeighbors == 3) : (aliveNeighbors == 3);
+                            new_cells[i, j].Life = new_cells[i, j].Life ? (aliveNeighbors >= MinCells && aliveNeighbors <= MaxCells) : (aliveNeighbors == RevivalCells);
                             if (new_cells[i, j].Life)
                                 count_life_cells++;
                         }
@@ -185,9 +240,19 @@ namespace GameOfLife
                     cells = new_cells; //смена поколений
                     UpdateView();
 
-                    await Task.Delay(5000 / _generationSpeed);
+                    await Task.Delay(5000 / GenerationSpeed);
                 }
             }
+        }
+
+        public void SetMinCells(int minCells)
+        {
+            MinCells = minCells;
+        }
+
+        public void SetMaxCells(int maxCells)
+        {
+            MaxCells = maxCells;
         }
 
         private void FinishGame()
@@ -226,15 +291,6 @@ namespace GameOfLife
             return true;
         }
 
-        private void GenerationSpeedChanged(object sender, ValueChangedEventArgs e)
-        {   
-            if (SpeedLabel != null)
-            {
-                _generationSpeed = (int)e.NewValue;
-                SpeedLabel.Text = $"Текущая скорость развития поколений равна: {_generationSpeed}";
-            }
-        }
-
         private void PauseClicked(object sender, EventArgs e)
         {
             _isRunning = false;
@@ -245,7 +301,7 @@ namespace GameOfLife
             _isRunning = false;
             for (int i = 0; i < Rows; i++)
             {
-                for (int j = 0; j < Cols; j++)
+                for (int j = 0; j < Columns; j++)
                 {
                     _cellStates[i, j] = false;
                     _cells[i, j].BackgroundColor = Colors.Black;
@@ -253,7 +309,7 @@ namespace GameOfLife
             }
         }
 
-        private void InfoClicked(object sender, EventArgs e)
+        public void InfoClicked(object sender, EventArgs e)
         {
             DisplayAlert(
                 "Правила игры \"Жизнь\"",
