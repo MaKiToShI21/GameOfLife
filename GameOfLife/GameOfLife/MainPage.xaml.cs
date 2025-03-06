@@ -1,5 +1,4 @@
-﻿using Microsoft.Maui.Animations;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace GameOfLife
 {
@@ -14,15 +13,14 @@ namespace GameOfLife
 
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
-        const int Rows = 20;
-        private const int Columns = 20;
+        const int Rows = 50;
+        private const int Columns = 50;
         private bool _isRunning = false;
-        Cell[,] cells = new Cell[Rows, Columns]; //основной массив
+        public static Cell[,] Cells { get; set; } = new Cell[Rows, Columns]; //основной массив
         private readonly BoxView[,] _cells = new BoxView[Rows, Columns];
         private readonly bool[,] _cellStates = new bool[Rows, Columns];
+
         private int _generationSpeed = 1;
-        private List<Cell[,]> _historyOfCells = new();
-       
         public int GenerationSpeed
         {
             get => _generationSpeed;
@@ -78,6 +76,36 @@ namespace GameOfLife
             }
         }
 
+        private bool _noDelayMode;
+        public bool NoDelayMode
+        {
+            get => _noDelayMode;
+            set
+            {
+                if (_noDelayMode != value)
+                {
+                    _noDelayMode = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private float _scale = 2.5f;
+        new public float Scale
+        {
+            get => _scale;
+            set
+            {
+                if (_scale != value)
+                {
+                    _scale = value;
+                    FieldScaling();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        // Инициализация страницы
         public MainPage()
         {
             InitializeComponent();
@@ -85,19 +113,29 @@ namespace GameOfLife
             BindingContext = this;
         }
 
-        private void CreateGrid()
+        // Изменение масштаба
+        public void FieldScaling()
         {
-            Field.RowDefinitions.Clear();
-            Field.ColumnDefinitions.Clear();
-            Field.Children.Clear();
-
             for (int i = 0; i < Rows; i++)
             {
-                Field.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+                Field.RowDefinitions[i].Height = 500 / Rows * Scale;
             }
             for (int j = 0; j < Columns; j++)
             {
-                Field.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
+                Field.ColumnDefinitions[j].Width = 500 / Columns * Scale;
+            }
+        }
+
+        // Создание поля
+        private void CreateGrid()
+        {
+            for (int i = 0; i < Rows; i++)
+            {
+                Field.RowDefinitions.Add(new RowDefinition { Height = 500/Rows*Scale });
+            }
+            for (int j = 0; j < Columns; j++)
+            {
+                Field.ColumnDefinitions.Add(new ColumnDefinition { Width = 500 / Columns * Scale });
             }
 
             for (int i = 0; i < Rows; i++)
@@ -126,12 +164,14 @@ namespace GameOfLife
             }
         }
 
+        // Обработка нажатия на клеточку
         private void ToggleCell(int row, int col)
         {
             _cellStates[row, col] = !_cellStates[row, col];
             _cells[row, col].BackgroundColor = _cellStates[row, col] ? Colors.LightGreen : Colors.Black;
         }
 
+        // Создание массива клеточек
         private void CreateCells()
         {
             for (int i = 0; i < Rows; i++)
@@ -139,20 +179,21 @@ namespace GameOfLife
                 for (int j = 0; j < Columns; j++)
                 {
                     if (_cells[i, j].BackgroundColor == Colors.Black)
-                        cells[i, j] = new Cell(false);
+                        Cells[i, j] = new Cell(false);
                     else
-                        cells[i, j] = new Cell(true);
+                        Cells[i, j] = new Cell(true);
                 }
             }
         }
 
+        // Финиш если статичная картинка
         private bool CheckGeneration(Cell[,] new_cells)
         {
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    if (cells[i, j].Life != new_cells[i, j].Life)
+                    if (Cells[i, j].Life != new_cells[i, j].Life)
                         return false;
                 }
             }
@@ -160,39 +201,43 @@ namespace GameOfLife
             return true;
         }
 
+        // Обновление состояния игры
         private void UpdateView()
         {
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    if (cells[i, j].Life)
+                    if (Cells[i, j].Life)
                         _cells[i, j].BackgroundColor = Colors.LightGreen;
                     else
                         _cells[i, j].BackgroundColor = Colors.Black;
                 }
             }
         }
+
+        // Клонирование 
         private Cell[,] CloneCells(Cell[,] new_cells)
         {
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    new_cells[i, j] = new Cell(cells[i, j].Life);
+                    new_cells[i, j] = new Cell(Cells[i, j].Life);
                 }
             }
             return new_cells;
         }
+
+        // Запуск игры
         private async void StartClicked(object sender, EventArgs e)
         {
             if (!_isRunning)
             {
                 _isRunning = true;
-                CreateCells(); //теперь имеем массив с клетками f/t
-
+                CreateCells();
                 while (_isRunning)
-                { 
+                {
                     Cell[,] new_cells = new Cell[Rows, Columns];
                     new_cells = CloneCells(new_cells);
 
@@ -203,14 +248,14 @@ namespace GameOfLife
                         for (int j = 0; j < Columns; j++)
                         {
                             bool[] LifeArray = new bool[8];
-                            LifeArray[0] = i - 1 != -1 && cells[i - 1, j].Life;
-                            LifeArray[1] = j - 1 != -1 && cells[i, j - 1].Life;
-                            LifeArray[2] = i - 1 != -1 && j - 1 != -1 && cells[i - 1, j - 1].Life;
-                            LifeArray[3] = i - 1 != -1 && j + 1 != Columns && cells[i - 1, j + 1].Life;
-                            LifeArray[4] = i + 1 != Rows && j - 1 != -1 && cells[i + 1, j - 1].Life;
-                            LifeArray[5] = i + 1 != Rows && cells[i + 1, j].Life;
-                            LifeArray[6] = j + 1 != Columns && cells[i, j + 1].Life;
-                            LifeArray[7] = i + 1 != Rows && j + 1 != Columns && cells[i + 1, j + 1].Life;
+                            LifeArray[0] = i - 1 != -1 && Cells[i - 1, j].Life;
+                            LifeArray[1] = j - 1 != -1 && Cells[i, j - 1].Life;
+                            LifeArray[2] = i - 1 != -1 && j - 1 != -1 && Cells[i - 1, j - 1].Life;
+                            LifeArray[3] = i - 1 != -1 && j + 1 != Columns && Cells[i - 1, j + 1].Life;
+                            LifeArray[4] = i + 1 != Rows && j - 1 != -1 && Cells[i + 1, j - 1].Life;
+                            LifeArray[5] = i + 1 != Rows && Cells[i + 1, j].Life;
+                            LifeArray[6] = j + 1 != Columns && Cells[i, j + 1].Life;
+                            LifeArray[7] = i + 1 != Rows && j + 1 != Columns && Cells[i + 1, j + 1].Life;
                             int aliveNeighbors = LifeArray.Count(x => x);
 
                             new_cells[i, j].Life = new_cells[i, j].Life ? (aliveNeighbors >= MinCells && aliveNeighbors <= MaxCells) : (aliveNeighbors == RevivalCells);
@@ -224,71 +269,37 @@ namespace GameOfLife
                         break;
                     }
 
-                    _historyOfCells.Add(cells);
-                    if (CheckForСyclicity(_historyOfCells, new_cells))
-                    {
-                        FinishGame();
-                        break;
-                    }
-                    
                     if (count_life_cells == 0)
                     {
                         FinishGame();
                         break;
                     }
 
-                    cells = new_cells; //смена поколений
+                    Cells = new_cells;
                     UpdateView();
 
-                    await Task.Delay(5000 / GenerationSpeed);
+                    if (!NoDelayMode)
+                        await Task.Delay(5000 / GenerationSpeed);
+                    else
+                    {
+                        await Task.Delay(50);
+                    }
                 }
             }
         }
 
-        public void SetMinCells(int minCells)
+        public void GenerationSpeedModeWasToggled(object sender, ToggledEventArgs e)
         {
-            MinCells = minCells;
-        }
-
-        public void SetMaxCells(int maxCells)
-        {
-            MaxCells = maxCells;
+            if (e.Value == true)
+                NoDelayMode = true;
+            else
+                NoDelayMode = false;
         }
 
         private void FinishGame()
         {
             DisplayAlert("Игра окончена", "", "Выйти");
             _isRunning = false;
-        }
-
-        private bool CheckForСyclicity(List<Cell[,]> _historyOfCells, Cell[,] new_cells)
-        {
-            foreach (var pastCells in _historyOfCells)
-            {
-                if (AreStatesEqual(pastCells, new_cells))
-                    return true;
-            }
-            return false;
-        }
-
-        // Метод для проверки совпадения состояний (Life) всех клеток
-        private bool AreStatesEqual(Cell[,] arr1, Cell[,] arr2)
-        {
-            int rows = arr1.GetLength(0);
-            int cols = arr1.GetLength(1);
-
-            if (rows != arr2.GetLength(0) || cols != arr2.GetLength(1))
-                return false; // Разные размеры — точно не совпадают
-
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < cols; j++)
-                {
-                    if (arr1[i, j].Life != arr2[i, j].Life) // Сравниваем только Life
-                        return false;
-                }
-            }
-            return true;
         }
 
         private void PauseClicked(object sender, EventArgs e)
@@ -307,6 +318,18 @@ namespace GameOfLife
                     _cells[i, j].BackgroundColor = Colors.Black;
                 }
             }
+        }
+
+        public async void SaveClicked(object sender, EventArgs e)
+        {
+            SaveInfo.SaveModel();
+            await DisplayAlert("Уведомление", "Игра была успешно сохранена!", "Ok");
+        }
+
+        public void LoadClicked(object sender, EventArgs e)
+        {
+            SaveInfo.LoadModel();
+            UpdateView();
         }
 
         public void InfoClicked(object sender, EventArgs e)
@@ -342,3 +365,5 @@ namespace GameOfLife
         }
     }
 }
+
+

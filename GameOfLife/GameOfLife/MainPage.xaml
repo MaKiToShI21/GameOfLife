@@ -8,14 +8,12 @@
         <StackLayout Spacing="25" Margin="35">
             <StackLayout>
                 <Grid HorizontalOptions="Fill" ColumnSpacing="10">
-                    <!-- Первая колонка (пустая, для отступов) -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="2.1*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Заголовок в центре -->
                     <StackLayout Grid.Column="1">
                         <Label 
                              Text="❤️ Игра Жизнь!" 
@@ -27,16 +25,20 @@
 
                         <Frame BorderColor="Black" BackgroundColor="LightGray" HorizontalOptions="Center" VerticalOptions="Center" >
                             <StackLayout Spacing="20" >
-                                <Grid x:Name="Field" 
-                                       WidthRequest="500"
-                                       HeightRequest="500"
-                                       Padding="2"
-                                       Background="Gray"/>
+                                <ScrollView x:Name="FieldScrollView" Orientation="Both" >
+                                    <ContentView x:Name="FieldContainer" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid x:Name="Field" 
+                                           WidthRequest="500"
+                                           HeightRequest="500"
+                                           Padding="2"
+                                           Background="Gray"/>
+                                    </ContentView>
+                                </ScrollView>
 
                                 <StackLayout Orientation="Horizontal" Spacing="50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" >
                                     <Button Text="Start" Clicked="StartClicked" WidthRequest="100" HeightRequest="50" FontSize="20" BackgroundColor="#FFB960" />
                                     <Button Text="Pause" Clicked="PauseClicked" WidthRequest="100" HeightRequest="50" FontSize="20" BackgroundColor="#FFB960"  />
-                                    <Button Text="Restart" Clicked="RestartClicked" WidthRequest="100" HeightRequest="50" FontSize="20" BackgroundColor="#FFB960"  />
+                                    <Button Text="Clear" Clicked="RestartClicked" WidthRequest="100" HeightRequest="50" FontSize="20" BackgroundColor="#FFB960"  />
                                 </StackLayout>
                             </StackLayout>
                         </Frame>
@@ -44,7 +46,6 @@
 
 
                     <StackLayout Grid.Column="2" >
-                        <!-- Кнопка информации справа -->
                         <ImageButton
                             Source="info.png"
                             WidthRequest="5"
@@ -56,8 +57,18 @@
                         <Frame BackgroundColor="LightGray" VerticalOptions="CenterAndExpand">
                             <StackLayout Spacing="10">
                                 <StackLayout>
+                                    <Label Text="{Binding Scale, StringFormat='Увеличить/Уменьшить масштаб поля {0}'}" TextColor="Black" />
+                                    <Stepper Value="{Binding Scale}"  Minimum="1" Maximum="5" Increment="0.5" />
+                                </StackLayout>
+                                
+                                <StackLayout>
+                                    <Label Text="Выключить / Включить  режим без задержки:" TextColor="Black" FontSize="16" />
+                                    <Switch x:Name="switcher" IsToggled="False" Toggled="GenerationSpeedModeWasToggled" />
+                                </StackLayout>
+                                
+                                <StackLayout>
                                     <Label Text="{Binding GenerationSpeed, StringFormat='Скорость развития поколений равна: {0}'}" TextColor="Black" FontSize="16" />
-                                    <Stepper Value="{Binding GenerationSpeed}"  Minimum="1" Maximum="15" Background="Gray" />
+                                    <Stepper Value="{Binding GenerationSpeed}"  Minimum="1" Background="Gray" />
                                 </StackLayout>
 
                                 <StackLayout>
@@ -73,6 +84,11 @@
                                 <StackLayout>
                                     <Label Text="{Binding RevivalCells, StringFormat='Кол-во необходимых живых клеток для оживления: {0}'}" TextColor="Black" FontSize="16" />
                                     <Stepper Value="{Binding RevivalCells}" Minimum="1" Maximum="8" Background="Gray"  />
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="25" Margin="0, 10, 0, 0">
+                                    <Button Text="Сохранить" Clicked="SaveClicked" TextColor="Black" WidthRequest="125" HeightRequest="30" FontSize="18" BackgroundColor="#FFB960" />
+                                    <Button Text="Загрузить" Clicked="LoadClicked" TextColor="Black" WidthRequest="125" HeightRequest="30" FontSize="18" BackgroundColor="#FFB960" />
                                 </StackLayout>
                             </StackLayout>
                         </Frame>
